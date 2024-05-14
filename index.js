@@ -3,42 +3,11 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import * as db from './db/connection.js';
 
-import mongoose from 'mongoose';
-
 import Hypher from 'hyphen';
 import euskaraPattern from 'hyphen/patterns/eu.js';
 
 // Create a Hypher object with the Basque hyphenation pattern
 const hyphenator = new Hypher(euskaraPattern);
-
-const mongodbRoute = process.env.MONGO_ROUTE + "kaotikards";
-
-
-async function start(){
-
-    try{
-       
-        await mongoose.connect(mongodbRoute);
-        app.listen( 0
-            , () => {
-            console.log(`Api is running on port ${0
-            }`);
-        })
-        console.log(`Conexion con la base de datos Mongo Correcta`)
-
-
-                }
-                catch (error){
-                    console.log(`Error al conectar con la base de datos: ${error.message}`);
-                }
-            }
-
-
-
-
-start();
-
-
 
 
 const app = express();
