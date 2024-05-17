@@ -49,6 +49,13 @@ app.get('/getWords', async (req,res) => {
     res.send(result.rows)
 })
 
+app.get('/getSilabas', async (req,res) => {
+
+    const query = 'SELECT * FROM public.silabas;'
+    const result = await db.query(query)
+    res.send(result.rows)
+})
+
 app.listen(port, () => {
     console.log(`phonos app listening on port ${port}`);
 })
