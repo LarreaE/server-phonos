@@ -9,7 +9,13 @@ import euskaraPattern from 'hyphen/patterns/eu.js';
 // Create a Hypher object with the Basque hyphenation pattern
 const hyphenator = new Hypher(euskaraPattern);
 
+let frase = "kaixo mundua, zer moduz zaude. Oso ongi eskerrikasko";
 
+let res = await hyphenator(frase, {
+    hyphenChar: "-"
+})
+
+console.log(res);
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -32,6 +38,13 @@ app.get('/',(req,res) => {
 app.get('/getFrases', async (req,res) => {
 
     const query = 'SELECT * FROM public.frases;'
+    const result = await db.query(query)
+    res.send(result.rows)
+})
+
+app.get('/getWords', async (req,res) => {
+
+    const query = 'SELECT * FROM public.palabras;'
     const result = await db.query(query)
     res.send(result.rows)
 })
