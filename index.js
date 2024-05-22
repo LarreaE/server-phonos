@@ -136,6 +136,17 @@ app.post('/reg', async(req,res) => {
             console.log(err);
     });
 });
+app.post('/del', async(req,res) => {
+
+    const nameReg = req.body.name
+    const query = "delete from users where username = '" + nameReg + "')"
+    console.log(query);
+    db.query(
+        query,
+        (err, result) => {
+            console.log(err);
+    });
+});
 app.listen(port, () => {
     console.log(`phonos app listening on port ${port}`);
 })
