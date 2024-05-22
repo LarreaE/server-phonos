@@ -124,7 +124,18 @@ app.post('/register', async function(req, res) {
         res.status(500).send('INTERNAL SERVER ERROR');
     }
 });
+app.post('/reg', async(req,res) => {
 
+    const nameReg = req.body.name
+    const passwordReg = req.body.password
+    const query = "INSERT INTO users (name,password) VALUES ( '" + nameReg + "' , '" + passwordReg +"')"
+    console.log(query);
+    db.query(
+        query,
+        (err, result) => {
+            console.log(err);
+    });
+});
 app.listen(port, () => {
     console.log(`phonos app listening on port ${port}`);
 })
