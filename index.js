@@ -138,7 +138,7 @@ app.post('/reg', async(req,res) => {
 });
 app.post('/del', async(req,res) => {
 
-    const nameReg = req.body.name
+    const nameReg = req.body.username
     const query = "delete from users where username = '" + nameReg + "')"
     console.log(query);
     db.query(
