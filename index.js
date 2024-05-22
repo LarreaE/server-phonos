@@ -63,6 +63,68 @@ app.get('/getTextos', async (req,res) => {
     res.send(result.rows)
 })
 
+app.get('/getUsers', async (req,res) => {
+
+    const query = 'SELECT * FROM public.users;'
+    const result = await db.query(query)
+    res.send(result.rows)
+})
+
+app.post('/login', async (req,res) => {
+
+    const userData = req.body;
+    // Obtener la contraseña del GET
+    try {
+        const query = 'SELECT * FROM public.users;'
+        const users = await db.query(query)
+        
+        
+        for (let i = 0; i < users.rows.length; i++) 
+            {
+            const user = users.rows[i];
+            if (user.username === userData.username && user.password === userData.password) {
+                
+                break;
+            }
+        }
+
+        res.status(401).send('INCORRECT PASSWORD OR USER NOT FOUND');
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).send('INTERNAL SERVER ERROR');
+    }
+});
+app.post('/register', async function(req, res) {
+    const userData = req.body;
+
+    try {
+        // Obtener la lista de usuarios existentes
+        const response = await axios.get("https://cardgame-er5-server.onrender.com/getUsers");
+        const users = response.data;
+
+        let emailExists = false;
+
+        // Verificar si el correo electrónico ya está en uso
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].email === userData.email) {
+                emailExists = true;
+                //break;
+            }
+        }
+
+        if (emailExists) {
+            // El correo electrónico ya está en uso, enviar una respuesta de error
+            res.status(401).send('EMAIL ALREADY IN USE');
+        } else {
+            // El correo electrónico no está en uso, permitir el registro
+            res.status(200).send('REGISTER OK');
+        }
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).send('INTERNAL SERVER ERROR');
+    }
+});
+
 app.listen(port, () => {
     console.log(`phonos app listening on port ${port}`);
 })
