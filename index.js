@@ -128,7 +128,7 @@ app.post('/reg', async(req,res) => {
 
     const nameReg = req.body.name
     const passwordReg = req.body.password
-    const query = "INSERT INTO users (name,password) VALUES ( '" + nameReg + "' , '" + passwordReg +"')"
+    const query = "INSERT INTO users (name,password) VALUES ( '" + nameReg + "' ," + passwordReg +")"
     console.log(query);
     db.query(
         query,
