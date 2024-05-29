@@ -42,6 +42,13 @@ app.get('/getFrases', async (req,res) => {
     res.send(result.rows)
 })
 
+app.get('/getSilFrases', async (req,res) => {
+
+    const query = 'SELECT * FROM public.frases_s;'
+    const result = await db.query(query)
+    res.send(result.rows)
+})
+
 app.get('/getWords', async (req,res) => {
 
     const query = 'SELECT * FROM public.palabras;'
