@@ -128,7 +128,7 @@ app.post('/reg', async(req,res) => {
 
     const nameReg = req.body.name
     const passwordReg = req.body.password
-    const query = "INSERT INTO users (username,password) VALUES ( '" + nameReg + "' , '" + passwordReg +"')"
+    const query = "INSERT INTO users (username,password,done,correct) VALUES ( '" + nameReg + "' , '" + passwordReg +"',0,0)"
     console.log(query);
     db.query(
         query,
@@ -147,6 +147,24 @@ app.post('/del', async(req,res) => {
             console.log(err);
     });
 });
+
+app.post('/postScore', async(req,res) => {
+
+    const nameReg = req.body.username
+    const query = 
+    `
+    UPDATE users 
+    SET your_integer_column = your_integer_column + 1 
+    WHERE your_condition; "
+    `
+    console.log(query);
+    db.query(
+        query,
+        (err, result) => {
+            console.log(err);
+    });
+});
+
 app.listen(port, () => {
     console.log(`phonos app listening on port ${port}`);
 })
