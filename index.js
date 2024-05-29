@@ -151,11 +151,16 @@ app.post('/del', async(req,res) => {
 app.post('/postScore', async(req,res) => {
 
     const nameReg = req.body.username
+    const points = req.body.points;
+    const done = req.body.done;
     const query = 
     `
     UPDATE users 
-    SET your_integer_column = your_integer_column + 1 
-    WHERE your_condition; "
+    SET done = done + `+ done +`
+    WHERE username = '` + nameReg + `'; 
+    UPDATE users 
+    SET correct = correct + `+ points +`
+    WHERE username = '` + nameReg + `'; 
     `
     console.log(query);
     db.query(
